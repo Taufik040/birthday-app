@@ -1,3 +1,4 @@
+ HEAD
 # 🎂 Retro Birthday — Panduan Deploy Gratis
 
 Stack: **Flask** + **Supabase Storage** (file) + **Railway** (hosting)
@@ -73,3 +74,6 @@ Buka https://supabase.com → Sign Up (gratis, 1GB storage)
   /view   -> Penerima (hanya lihat & putar musik)
 
 File tersimpan PERMANEN di Supabase, tidak hilang saat server restart.
+=======
+# birthday-app
+ 6d4944b0ba11d569bd695ad333ea9b9e75b204d2
