@@ -319,16 +319,18 @@
 </head>
 <body>
   <div id="startOverlay" style="
-  position:fixed; inset:0; z-index:9999;
-  background:rgba(26,13,5,0.92);
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  cursor:pointer; font-family:'Special Elite',cursive;
-">
-  <div style="font-size:4rem; margin-bottom:16px; animation:starPulse 1.5s ease-in-out infinite;">🎂</div>
-  <div style="color:#c9a84c; font-size:1.6rem; letter-spacing:4px;">CLICK TO OPEN</div>
-  <div style="color:#8b5e3c; font-size:0.85rem; margin-top:10px; letter-spacing:2px;">✦ Kejutan Kecil ✦</div>
-  <div style="color:#8b5e3c; font-size:0.85rem; margin-top:10px; letter-spacing:2px;">✦ Spesial Untuk Princess Kuu ✦</div>
+    position:fixed; inset:0; z-index:9999;
+    background:rgba(26,13,5,0.95);
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    cursor:pointer; font-family:'Special Elite',cursive;
+    transition: opacity 0.8s ease;
+  ">
+    <div style="font-size:5rem; margin-bottom:20px; animation:starPulse 1.5s ease-in-out infinite;">🎂</div>
+    <div style="color:#c9a84c; font-size:clamp(1.2rem,4vw,1.8rem); letter-spacing:5px; text-align:center; padding:0 20px;">✦ KLIK UNTUK MEMBUKA ✦</div>
+    <div style="color:#8b5e3c; font-size:0.85rem; margin-top:14px; letter-spacing:2px; text-align:center;">Kejutan Kecil Spesial Untuk Princess Kuu</div>
+    <div style="margin-top:30px; width:60px; height:2px; background:linear-gradient(90deg,transparent,#c9a84c,transparent);"></div>
+    <div style="color:rgba(201,168,76,0.4); font-size:0.7rem; margin-top:16px; letter-spacing:3px; animation:starPulse 2s ease-in-out infinite 0.5s;">tap anywhere</div>
   </div>
   <div class="grain-overlay"></div>
   <div class="scanlines"></div>
@@ -422,9 +424,11 @@
           <div class="tracklist" id="tracklist">
             {% if music_files %}
               {% for m in music_files %}
-              <div class="track-item" data-src="/static/music/{{ m }}" data-name="{{ m | replace('.mp3','') | replace('.wav','') | replace('.ogg','') | replace('.m4a','') }}">
+              <div class="track-item"
+                data-src="{{ m.url }}"
+                data-name="{{ m.name | replace('.mp3','') | replace('.wav','') | replace('.ogg','') | replace('.m4a','') }}">
                 <span class="track-num">{{ '%02d' % loop.index }}</span>
-                <span class="track-name">{{ m | replace('.mp3','') | replace('.wav','') | replace('.ogg','') | replace('.m4a','') }}</span>
+                <span class="track-name">{{ m.name | replace('.mp3','') | replace('.wav','') | replace('.ogg','') | replace('.m4a','') }}</span>
               </div>
               {% endfor %}
             {% else %}
@@ -449,7 +453,7 @@
               <div class="fc fc-tl"></div><div class="fc fc-tr"></div>
               <div class="fc fc-bl"></div><div class="fc fc-br"></div>
               <div class="frame-inner">
-                <img src="/static/photos/{{ p }}" alt="Memory" class="photo-img">
+                <img src="{{ p.url }}" alt="Memory" class="photo-img">
                 <div class="photo-caption">✦ memory ✦</div>
               </div>
             </div>
@@ -582,13 +586,16 @@
     function startDance()  { document.querySelectorAll('.photo-frame').forEach(f=>f.classList.add('dancing')); }
     function stopDance()   { document.querySelectorAll('.photo-frame').forEach(f=>f.classList.remove('dancing')); }
 
-    // Auto-play first track on page load (will need user gesture)
+    // Auto-load first track (no autoplay yet — tunggu klik overlay)
     if(items.length>0) load(0, false);
 
-    document.getElementById('startOverlay').addEventListener('click', function() {
-      this.style.display = 'none';
-      load(0, true); // autoplay setelah klik
-});
+    // ── OVERLAY CLICK → fade out → autoplay ──
+    const overlay = document.getElementById('startOverlay');
+    overlay.addEventListener('click', function() {
+      overlay.style.opacity = '0';
+      setTimeout(() => { overlay.style.display = 'none'; }, 800);
+      load(0, true);
+    });
   </script>
 </body>
 </html>
