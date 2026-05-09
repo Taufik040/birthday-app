@@ -318,6 +318,18 @@
   </style>
 </head>
 <body>
+  <div id="startOverlay" style="
+  position:fixed; inset:0; z-index:9999;
+  background:rgba(26,13,5,0.92);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  cursor:pointer; font-family:'Special Elite',cursive;
+">
+  <div style="font-size:4rem; margin-bottom:16px; animation:starPulse 1.5s ease-in-out infinite;">🎂</div>
+  <div style="color:#c9a84c; font-size:1.6rem; letter-spacing:4px;">CLICK TO OPEN</div>
+  <div style="color:#8b5e3c; font-size:0.85rem; margin-top:10px; letter-spacing:2px;">✦ Kejutan Kecil ✦</div>
+  <div style="color:#8b5e3c; font-size:0.85rem; margin-top:10px; letter-spacing:2px;">✦ Spesial Untuk Princess Kuu ✦</div>
+  </div>
   <div class="grain-overlay"></div>
   <div class="scanlines"></div>
   <div class="confetti-container" id="confetti"></div>
@@ -328,8 +340,8 @@
     <header class="hero">
       <div class="hero-tape hero-tape--l"></div>
       <div class="hero-tape hero-tape--r"></div>
-      <div class="hero-stars">★ ★ ★ ★ ★</div>
-      <p class="hero-for">✦ sebuah kejutan spesial untukmu ✦</p>
+      <div class="hero-stars">★ ★ ★ ★</div>
+      <p class="hero-for">✦ sebuah kejutan kecil spesial buat kamuu ✦</p>
       <div class="hero-title">
         <span class="title-happy">Happy</span>
         <span class="title-birthday">Birthday!</span>
@@ -348,21 +360,20 @@
         <p class="letter-greeting">Untuk Kamu Yang Istimewa,</p>
         <div class="letter-body">
           <p>
-            Di hari yang sangat spesial ini, aku ingin kamu tahu betapa berartinya
-            kehadiranmu. Setiap tawa, setiap cerita, dan setiap momen bersamamu
-            adalah hadiah terindah yang pernah aku terima. 🌟
+            Di hari yang sangat sangat spesial ini, aku pengen kamuu tauu betapa berartinya
+            kehadiran kamuu di hidup ku. Setiap waktu, setiap tawa, setiap cerita, dan 
+            setiap momen bersama kamuu adalah hadiah terindah yang pernah aku miliki. 🌟
           </p>
           <p>
-            Semoga di usiamu yang baru ini, semua impianmu perlahan menjadi nyata,
-            setiap langkahmu dipenuhi cahaya, dan hatimu selalu dipenuhi kebahagiaan
-            yang tidak pernah habis. Kamu layak mendapatkan semua yang terbaik! ✨
+            Semoga di usiamu yang baru ini, semua harapan, mimpi-mimpi, dan impian kamuu perlahan menjadi nyata yaa sayangg,
+            diberikan kemudahan di setiap langkahmu, dan hatimu selalu dipenuhi kebahagiaan dan keceriaan
+            yang tidak pernah ada habis pokoknya. Kamu layak mendapatkan semua yang terbaik! ✨
           </p>
           <p>
-            Nikmati musik dan foto-foto kenangan ini — semuanya dibuat khusus untukmu,
-            dengan penuh cinta dan kehangatan. 🎵
+            Selamat Ulang Tahun yaa sayaangg
           </p>
         </div>
-        <p class="letter-sign">— Dengan segenap cinta ♥</p>
+        <p class="letter-sign">— Love youu forever and always ♥</p>
       </div>
     </section>
 
@@ -370,8 +381,8 @@
     <section class="player-section">
       <div class="retro-player">
         <div class="player-brand-row">
-          <div class="player-brand">♫ RETRO-PLAY ♫</div>
-          <div class="player-model">MODEL B-DAY 1984</div>
+          <div class="player-brand">♫ PLAY ♫</div>
+          <div class="player-model">B-DAY 2026</div>
         </div>
 
         <div class="player-screen">
@@ -402,7 +413,7 @@
           <button class="ctrl-btn" id="nextBtn" title="Berikutnya">⏭</button>
           <div class="vol-wrap">
             <span class="vol-icon">🔊</span>
-            <input type="range" id="volSlider" min="0" max="1" step="0.05" value="0.8" class="vol-slider">
+            <input type="range" id="volSlider" min="0" max="1" step="0.05" value="0.60" class="vol-slider">
           </div>
         </div>
 
@@ -411,9 +422,9 @@
           <div class="tracklist" id="tracklist">
             {% if music_files %}
               {% for m in music_files %}
-              <div class="track-item" data-src="{{ m.url }}" data-name="{{ m.name | replace('.mp3','') | replace('.wav','') | replace('.ogg','') | replace('.m4a','') }}">
+              <div class="track-item" data-src="/static/music/{{ m }}" data-name="{{ m | replace('.mp3','') | replace('.wav','') | replace('.ogg','') | replace('.m4a','') }}">
                 <span class="track-num">{{ '%02d' % loop.index }}</span>
-                <span class="track-name">{{ m.name | replace('.mp3','') | replace('.wav','') | replace('.ogg','') | replace('.m4a','') }}</span>
+                <span class="track-name">{{ m | replace('.mp3','') | replace('.wav','') | replace('.ogg','') | replace('.m4a','') }}</span>
               </div>
               {% endfor %}
             {% else %}
@@ -428,8 +439,7 @@
     <!-- GALLERY -->
     <section class="gallery-section">
       <div class="section-head">
-        <h2 class="section-title">📷 Galeri Kenangan</h2>
-        <p class="section-sub">foto-foto bergerak mengikuti irama musik</p>
+        <h2 class="section-title">📷 Galeri Foto</h2>
       </div>
       <div class="photo-grid" id="photoGrid">
         {% if photos %}
@@ -439,7 +449,7 @@
               <div class="fc fc-tl"></div><div class="fc fc-tr"></div>
               <div class="fc fc-bl"></div><div class="fc fc-br"></div>
               <div class="frame-inner">
-                <img src="{{ p.url }}" alt="Memory" class="photo-img">
+                <img src="/static/photos/{{ p }}" alt="Memory" class="photo-img">
                 <div class="photo-caption">✦ memory ✦</div>
               </div>
             </div>
@@ -454,15 +464,15 @@
 
     <!-- FOOTER -->
     <footer class="retro-footer">
-      <div class="footer-deco">✦ ✦ ✦</div>
-      <p>Dibuat dengan ♥ — Sebuah Perayaan Retro Untukmu</p>
-      <p class="footer-small">Semoga hari ini dan seterusnya selalu indah ✨</p>
+      <div class="footer-deco">✦ ✦ ✦ ✦</div>
+      <p>Dibuat dengan ♥ — Sebuah Perayaan Kecil-kecilan Untuk Princess Cantiikk Kuu</p>
+      <p class="footer-small">Semoga hari ini dan seterus terus terusnya selalu indah ✨</p>
     </footer>
   </div>
 
   <script>
     // ── DATE ──
-    const d = new Date();
+    const d = new Date('2026-05-12');
     document.getElementById('heroDate').textContent =
       d.toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
 
@@ -574,6 +584,11 @@
 
     // Auto-play first track on page load (will need user gesture)
     if(items.length>0) load(0, false);
+
+    document.getElementById('startOverlay').addEventListener('click', function() {
+      this.style.display = 'none';
+      load(0, true); // autoplay setelah klik
+});
   </script>
 </body>
 </html>
